@@ -1,5 +1,6 @@
 // Author: Cristian Bidea 
 // Title: Basic shader exploring plotting of functions
+// tested on http://editor.thebookofshaders.com/
 
 #ifdef GL_ES
 precision mediump float;
