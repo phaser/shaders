@@ -20,9 +20,8 @@ uniform float u_time;
 void main() {
     vec2 st = gl_FragCoord.xy / u_resolution.xy;
     st.x *= u_resolution.x/u_resolution.y;
-    st.x -= 0.5;
-    st.y -= 0.5;
-	float dist = length(st);
+    st = vec2(0.5) - st;  // center it
+    float dist = length(st);
     float radius = 0.5;
     vec3 white = vec3(1.0, 1.0, 1.0);
     vec3 black = vec3(0.0, 0.0, 0.0);    
