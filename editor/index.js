@@ -24,15 +24,15 @@ function InitializeWebGL(theCanvas)
     return;
   }
 
-  var shaderProgram = initShaders();
+  shaderProgram = initShaders();
  
     squareVertexPositionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
     vertices = [
-         100.0,  100.0,  100.0,
-        -100.0,  100.0,  100.0,
-         100.0, -100.0,  100.0,
-        -100.0, -100.0,  100.0
+         0.5,  0.5,  0.0,
+        -0.5,  0.5,  0.0,
+         0.5, -0.5,  0.0,
+        -0.5, -0.5,  0.0
     ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
     squareVertexPositionBuffer.itemSize = 3;
@@ -46,12 +46,10 @@ function InitializeWebGL(theCanvas)
   gl.depthFunc(gl.LEQUAL);
   // Clear the color as well as the depth buffer.
   gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-  drawScene(shaderProgram);  
+  drawScene();
 };
 
-function drawScene(shaderProgram) {
-    //gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+function drawScene() {
     gl.bindBuffer(gl.ARRAY_BUFFER, squareVertexPositionBuffer);
     gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, squareVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
 	gl.drawArrays(gl.TRIANGLE_STRIP, 0, squareVertexPositionBuffer.numItems);
@@ -59,7 +57,6 @@ function drawScene(shaderProgram) {
 
 function initShaders()
 {
-	var fsh = "";
 	var vertexShader = compileShader(gl, getShader("vertexShader"), gl.VERTEX_SHADER);
 	var fragmentShader = compileShader(gl, getShader("fragmentShader"), gl.FRAGMENT_SHADER);
 	var program = createProgram(gl, vertexShader, fragmentShader);

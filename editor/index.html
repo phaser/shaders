@@ -69,17 +69,32 @@
 		<script src="codemirror-5.20.2/mode/clike/clike.js"></script>
 		<script src="index.js"></script>
 		<script id="fragmentShader" type="x-shader/x-fragment">
-		  precision mediump float;
+// Author: Cristian Bidea 
+// Title: Basic shader exploring plotting of functions
+// tested on http://editor.thebookofshaders.com/
 
-		  void main(void) {
-			gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-		  }
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define PI 3.14159265359
+
+void main() {
+	vec2 st = gl_FragCoord.xy;
+	st += vec2(.0);
+    vec3 color = vec3(1.);
+    color = vec3(st.x,st.y,abs(sin(10.0)));
+
+    gl_FragColor = vec4(color,1.0);
+}
 		</script>
 
 		<script id="vertexShader" type="x-shader/x-vertex">
 		  attribute vec3 aVertexPosition;
-
+		  varying vec4 vColor;
+		  
 		  void main(void) {
+		    vColor = vec4(aVertexPosition, 1.0);
 			gl_Position = vec4(aVertexPosition, 1.0);
 		  }
 		</script>		
